@@ -2,28 +2,56 @@
 
 PhoneBook::PhoneBook() : contactCount(0), oldestContactIndex(0) {}
 
+// Удаляет пробелы и табуляцию с начала и конца строки
+static std::string trim(const std::string& str) {
+    size_t start = 0;
+    while (start < str.length() && (str[start] == ' ' || str[start] == '\t'))
+        start++;
+
+    size_t end = str.length();
+    while (end > start && (str[end - 1] == ' ' || str[end - 1] == '\t'))
+        end--;
+
+    return str.substr(start, end - start);
+}
+
 void PhoneBook::addContact() {
     Contact newContact;
     std::string input;
 
-    std::cout << "Enter first name: ";
-    std::getline(std::cin, input);
+    do {
+        std::cout << "Enter first name: ";
+        std::getline(std::cin, input);
+        input = trim(input);
+    } while (input.empty());
     newContact.setFirstName(input);
 
-    std::cout << "Enter last name: ";
-    std::getline(std::cin, input);
+    do {
+        std::cout << "Enter last name: ";
+        std::getline(std::cin, input);
+        input = trim(input);
+    } while (input.empty());
     newContact.setLastName(input);
 
-    std::cout << "Enter nickname: ";
-    std::getline(std::cin, input);
-    newContact.setNickName(input);
+    do {
+        std::cout << "Enter nickname: ";
+        std::getline(std::cin, input);
+        input = trim(input);
+    } while (input.empty());
+    newContact.setNickname(input);
 
-    std::cout << "Enter phone number: ";
-    std::getline(std::cin, input);
+    do {
+        std::cout << "Enter phone number: ";
+        std::getline(std::cin, input);
+        input = trim(input);
+    } while (input.empty());
     newContact.setPhoneNumber(input);
 
-    std::cout << "Enter darkest secret: ";
-    std::getline(std::cin, input);
+    do {
+        std::cout << "Enter darkest secret: ";
+        std::getline(std::cin, input);
+        input = trim(input);
+    } while (input.empty());
     newContact.setDarkestSecret(input);
 
     if (contactCount < 8) {
@@ -50,11 +78,13 @@ void PhoneBook::searchContacts() const {
         std::cout << std::setw(10) << i << "|"
                   << std::setw(10) << formatField(contacts[i].getFirstName()) << "|"
                   << std::setw(10) << formatField(contacts[i].getLastName()) << "|"
-                  << std::setw(10) << formatField(contacts[i].getNickName()) << std::endl;
+                  << std::setw(10) << formatField(contacts[i].getNickname()) << std::endl;
     }
 
-    if (contactCount == 0)
+    if (contactCount == 0) {
+        std::cout << "Phonebook is empty.\n";
         return;
+    }
 
     std::cout << "Enter index to view details: ";
     std::string input;
@@ -75,7 +105,7 @@ void PhoneBook::searchContacts() const {
 
     std::cout << "First Name: " << contacts[index].getFirstName() << std::endl;
     std::cout << "Last Name: " << contacts[index].getLastName() << std::endl;
-    std::cout << "Nickname: " << contacts[index].getNickName() << std::endl;
+    std::cout << "Nickname: " << contacts[index].getNickname() << std::endl;
     std::cout << "Phone Number: " << contacts[index].getPhoneNumber() << std::endl;
     std::cout << "Darkest Secret: " << contacts[index].getDarkestSecret() << std::endl;
 }

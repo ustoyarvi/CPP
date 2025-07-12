@@ -8,7 +8,7 @@ void Contact::setLastName(const std::string &value) {
     lastName = value;
 }
 
-void Contact::setNickName(const std::string &value) {
+void Contact::setNickname(const std::string &value) {
     nickname = value;
 }
 
@@ -28,7 +28,7 @@ std::string Contact::getLastName() const {
     return lastName;
 }
 
-std::string Contact::getNickName() const {
+std::string Contact::getNickname() const {
     return nickname;
 }
 
